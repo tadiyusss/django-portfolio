@@ -1,0 +1,57 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %} 
+    <div class="w-full grid md:grid-cols-2 grid-cols-1 gap-2.5">
+        <div class="col-span-1">
+            <div class="p-3 border rounded shadow bg-white">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% if field.name == 'published' %}
+                            {{ field }}
+                            {{ field.label }}
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
+                        
+                        {% if field.name == 'content' %}
+                            <p class="text-sm text-gray-400">This form textarea compiles the texts into markdown</p>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="flex items-center space-x-4">
+                        <a href="{% url 'blogs' %}" class="mt-4 px-4 py-1 rounded bg-white border shadow-inner hover:bg-gray-50 ease duration-200">Return</a>
+                        <button type="submit" name="save_blog" class="mt-4 px-4 py-1 rounded text-white bg-green-500 hover:bg-green-600 ease duration-200">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-span-1 p-3 border rounded shadow bg-white max-h-[800px] overflow-y-auto">
+            <h5 class="text-sm text-gray-500 font-semibold">Preview</h5>
+            <div id="preview" class="mt-2"></div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.3/purify.min.js" integrity="sha512-Ll+TuDvrWDNNRnFFIM8dOiw7Go7dsHyxRp4RutiIFW/wm3DgDmCnRZow6AqbXnCbpWu93yM1O34q+4ggzGeXVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'js/markdown-designs.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+        var content = $("#id_content").val();
+        var preview = $("#preview");
+        sanitized = DOMPurify.sanitize(content);
+        preview.html(marked.parse(sanitized));
+        applyTailwind('preview');
+    });
+
+    
+    $("#id_content").on("input", function() {
+        var content = $("#id_content").val();
+        var preview = $("#preview");
+        sanitized = DOMPurify.sanitize(content);
+        preview.html(marked.parse(sanitized));
+        applyTailwind('preview');
+    });
+</script>
+{% endblock %}

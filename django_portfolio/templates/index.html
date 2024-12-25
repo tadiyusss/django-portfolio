@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% include "components/hero.html" %}
+<div class="bg-gradient-to-b from-black to-slate-900">
+    {% include "components/languages.html" %}
+    {% include "components/projects.html" %}
+    {% include "components/blogs.html" %}
+    {% include "components/testimonials.html" %}
+    {% include "components/footer.html" %}
+</div>
+
+{% endblock %}

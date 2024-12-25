@@ -1,0 +1,48 @@
+{% load static %}
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <title>Thaddeus Toledo</title>
+        <script src='https://cdn.tailwindcss.com'></script>
+        <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    </head>
+    <body class="font-instrument">
+        {% block content %}{% endblock %}
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <div id="notification-container" class="fixed top-0 md:max-w-96 w-full p-5">
+             {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'info' %}
+                    <div id="notification" class="mb-3 w-full bg-blue-800 text-white p-3 rounded">
+                        <p>{{ message }}</p>
+                    </div>
+                    {% elif message.tags == 'error' %}
+                    <div id="notification" class="mb-3 w-full bg-red-800 text-white p-3 rounded">
+                        <p>{{ message }}</p>
+                    </div>
+                    {% elif message.tags == 'success' %}
+                    <div id="notification" class="mb-3 w-full bg-green-800 text-white p-3 rounded">
+                        <p>{{ message }}</p>
+                    </div>
+                    {% elif message.tags == 'warning' %}
+                    <div id="notification" class="mb-3 w-full bg-yellow-800 text-white p-3 rounded">
+                        <p>{{ message }}</p>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        <script>
+            // find all notification and fade out after 5 seconds of being shown
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $('#notification').fadeOut('slow');
+                }, 5000);
+            });
+        </script>
+        {% block javascript %}{% endblock %} 
+    </body>
+</html>

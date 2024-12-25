@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Dashboard</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+	</head>
+	<body class="font-instrument bg-gray-50">
+		<div class="flex min-h-screen h-full">
+			<div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-20 lg:hidden"></div>
+
+			<div id="sidebar" class="fixed inset-y-0 left-0 z-30 w-72 bg-white border-r transform -translate-x-full transition-transform duration-300 lg:translate-x-0 lg:static">
+				<div class="flex items-center p-4 space-x-4">
+                    <img src="{% static 'portfolio-logo.png' %}" class="w-10 h-10 rounded">
+					<h2 class="text-xl font-bold">Portfolio CMS</h2>
+				</div>
+				<nav class="mt-6">
+                    <ul class="mx-4">
+                        
+                        {% url 'home' as home_url %}
+                        {% url 'blogs' as blogs_url %}
+                        {% url 'create_blog' as create_blog %}
+                        {% url 'projects' as projects_url %}
+                        {% url 'create_project' as create_project %}
+                        {% url 'file_manager' as file_manager %}
+
+                        {% if request.get_full_path == home_url %}
+                        <li class="px-4 py-3 my-2 rounded-lg border border-indigo-200 text-indigo-500 bg-indigo-100">
+                            <a href="{{home_url}}" class="flex items-center space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                </svg>                              
+                                <p class="font-medium">Home</p>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="px-4 py-3 my-2 rounded-lg text-gray-500 hover:text-gray-800 hover:bg-gray-100 ease duration-200">
+                            <a href="{{home_url}}" class="flex items-center space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                </svg>                              
+                                <p class="font-medium">Home</p>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if request.get_full_path == blogs_url or request.get_full_path == create_blog %}
+                        <li class="px-4 py-3 my-2 rounded-lg border border-indigo-200 text-indigo-500 bg-indigo-100">
+                            <a href="{% url 'blogs' %}" class="flex items-center space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                </svg>                                                               
+                                <p class="font-medium">Blogs</p>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="px-4 py-3 my-2 rounded-lg text-gray-500 hover:text-gray-800 hover:bg-gray-100 ease duration-200">
+                            <a href="{% url 'blogs' %}" class="flex items-center space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                </svg>                                                               
+                                <p class="font-medium">Blogs</p>
+                            </a>
+                        </li>
+                        {% endif %}
+                        
+                        {% if request.get_full_path == projects_url or request.get_full_path == create_project %}
+                        <li class="px-4 py-3 my-2 rounded-lg border border-indigo-200 text-indigo-500 bg-indigo-100">
+                            <a href="{% url 'projects' %}" class="flex items-center space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+                                </svg>                                                                                            
+                                <p class="font-medium">Projects</p>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="px-4 py-3 my-2 rounded-lg text-gray-500 hover:text-gray-800 hover:bg-gray-100 ease duration-200">
+                            <a href="{% url 'projects' %}" class="flex items-center space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+                                </svg>                                                                                            
+                                <p class="font-medium">Projects</p>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% if request.get_full_path == file_manager %}
+                        <li class="px-4 py-3 my-2 rounded-lg border border-indigo-200 text-indigo-500 bg-indigo-100">
+                            <a href="{% url 'file_manager' %}" class="flex items-center space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                                </svg>                                                                                              
+                                <p class="font-medium">File Manager</p>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="px-4 py-3 my-2 rounded-lg text-gray-500 hover:text-gray-800 hover:bg-gray-100 ease duration-200">
+                            <a href="{% url 'file_manager' %}" class="flex items-center space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                                </svg>                                                                                             
+                                <p class="font-medium">File Manager</p>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li class="px-4 py-3 my-2 rounded-lg text-gray-500 hover:text-gray-800 hover:bg-gray-100 ease duration-200">
+                            <a href="{% url 'logout_admin' %}" class="flex items-center space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+                                </svg>
+                                <p class="font-medium">Logout</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+				</nav>
+			</div>
+			<!-- Main Content -->
+			<div class="flex-1">
+				<header class="flex p-4 border-b lg:space-x-0 space-x-4 bg-white">
+					<button id="openSidebar" class="text-gray-500 hover:text-gray-800 lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>                          
+                    </button>
+                    <h4 class="text-2xl font-medium">Hello, {{ request.user.first_name }} {{ request.user.last_name }}</h4>
+				</header>
+				<main class="p-4">
+                    {% block content %}{% endblock %}
+				</main>
+			</div>
+		</div>
+        <div id="notification-container" class="fixed bottom-0 right-0 md:max-w-96 w-full p-5">
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'info' %}
+                    <div id="notification" class="mb-3 w-full bg-blue-800 text-white p-3 rounded">
+                        <p>{{ message }}</p>
+                    </div>
+                    {% elif message.tags == 'error' %}
+                    <div id="notification" class="mb-3 w-full bg-red-800 text-white p-3 rounded">
+                        <p>{{ message }}</p>
+                    </div>
+                    {% elif message.tags == 'success' %}
+                    <div id="notification" class="mb-3 w-full bg-green-800 text-white p-3 rounded">
+                        <p>{{ message }}</p>
+                    </div>
+                    {% elif message.tags == 'warning' %}
+                    <div id="notification" class="mb-3 w-full bg-yellow-800 text-white p-3 rounded">
+                        <p>{{ message }}</p>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+		<script>
+            $(document).ready(function() {
+                sidebar = $("#sidebar");
+                overlay = $("#overlay");
+
+                setTimeout(function() {
+                    $('#notification').fadeOut('slow');
+                }, 5000);
+
+                $("#openSidebar").on("click", function() {
+                    sidebar.removeClass("-translate-x-full");
+                    overlay.removeClass("hidden");
+                });
+
+                $("#closeSidebar").on("click", function(){
+                    sidebar.addClass("-translate-x-full");
+                    overlay.addClass("hidden");
+                });
+
+                overlay.on("click", function() {
+                    sidebar.addClass("-translate-x-full");
+                    overlay.addClass("hidden");
+                });
+
+            });
+        </script>
+        {% block javascript %}{% endblock %}
+	</body>
+</html>

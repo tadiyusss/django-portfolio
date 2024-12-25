@@ -1,0 +1,208 @@
+{% extends "dashboard/base.html" %}
+{% load custom_filters %}
+{% load static %}
+{% block content %}
+<div class="w-full">
+    <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
+        <div class="col-span-1 p-4 border rounded shadow bg-white">
+            <h5 class="text-lg text-gray-400 font-semibold">Hits Today</h5>
+            <p class="text-3xl">{{hit_counter|get_dict_item:'hits_today'|length}}</p>
+        </div>
+        <div class="col-span-1 p-4 border rounded shadow bg-white">
+            <h5 class="text-lg text-gray-400 font-semibold">Unique Hits Today</h5>
+            <p class="text-3xl">{{hit_counter|get_dict_item:'hits_unique_today'|length}}</p>
+        </div>
+        <div class="col-span-1 p-4 border rounded shadow bg-white">
+            <h5 class="text-lg text-gray-400 font-semibold">Total Hits</h5>
+            <p class="text-3xl">{{hit_counter|get_dict_item:'hits_total'|length}}</p>
+        </div>
+        <div class="col-span-1 p-4 border rounded shadow bg-white">
+            <h5 class="text-lg text-gray-400 font-semibold">Most Visited Path</h5>
+            <p class="text-3xl">{{hit_counter|get_dict_item:'most_visited_page'|get_dict_item:'path'}}</p>
+        </div>
+    </div>
+    <div class="grid md:grid-cols-4 grid-cols-1 gap-4 mt-4">
+        <div class="col-span-2 border rounded shadow h-96 max-h-96 overflow-y-auto bg-white">
+            <div class="sticky top-0 flex items-center text-sm justify-between bg-gray-50 p-2 px-4">
+                <h5 class="text-gray-500 font-semibold">Hits Today</h5>
+            </div>
+            
+            <table class="w-full">
+                <thead class="bg-white">
+                    <tr class="text-gray-400 border-y">
+                        <th class="font-semibold p-2">Path</th>
+                        <th class="font-semibold p-2">IP Address</th>
+                        <th class="font-semibold p-2">OS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if hit_counter|get_dict_item:'hits_today'|length > 0 %}
+                        {% for hit in hit_counter|get_dict_item:'hits_today' %}
+                            <tr class="border-b text-center hover:bg-gray-50">
+                                <td class="py-2">{{hit.path}}</td>
+                                <td class="py-2">{{hit.ip}}</td>
+                                <td class="py-2">{{hit.user_agent|parse_user_agent|get_dict_item:'os'|get_dict_item:'family'}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr class="border-b text-center">
+                            <td colspan="4" class="py-4 text-gray-500">No hits found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-span-2 border rounded shadow h-96 max-h-96 overflow-y-auto bg-white">
+            <div class="sticky top-0 flex items-center text-sm justify-between bg-gray-50 p-2 px-4">
+                <h5 class="text-gray-500 font-semibold">Unique Hits Today</h5>
+            </div>
+            <table class="w-full">
+                <thead class="bg-white">
+                    <tr class="text-gray-400 border-y">
+                        <th class="font-semibold p-2">Count</th>
+                        <th class="font-semibold p-2">IP Address</th>
+                        <th class="font-semibold p-2">OS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if hit_counter|get_dict_item:'hits_unique_today'|length > 0 %}
+                        {% for hit in hit_counter|get_dict_item:'hits_unique_today' %}
+                            <tr class="border-b text-center hover:bg-gray-50">
+                                <td class="py-2">{{hit.ip__count}}</td>
+                                <td class="py-2">{{hit.ip}}</td>
+                                <td class="py-2">{{hit.user_agent|parse_user_agent|get_dict_item:'os'|get_dict_item:'family'}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr class="border-b text-center">
+                            <td colspan="4" class="py-4 text-gray-500">No hits found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="grid md:grid-cols-3 grid-cols-1 gap-4 mt-4">
+        
+        <div class="col-span-1 border rounded shadow h-96 max-h-96 overflow-y-auto bg-white">
+            <div class="sticky top-0 flex items-center text-sm justify-between bg-gray-50 p-2 px-4">
+                <h5 class="text-gray-500 font-semibold">Languages</h5>
+                <button id="createLanguageBtn" class="px-2 py-1 border rounded shadow-inner hover:bg-gray-50 ease duration-200 bg-white">Add Language</button>
+            </div>
+            <table class="w-full">
+                <thead class="bg-white">
+                    <tr class="text-gray-400 border-y">
+                        <th class="font-semibold p-2">Image</th>
+                        <th class="font-semibold p-2">Language</th>
+                        <th class="font-semibold p-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if languages|length > 0 %}
+                        {% for language in languages %}
+                            {% with language.image.url|split:'/'|get_list_item:-1 as image_filename  %}
+                                {% with 'languages/' as folder_name %}
+                                    <tr class="border-b text-center hover:bg-gray-50">
+                                        <td class="py-2"><img src="{% static folder_name|add:image_filename %}" alt="{{ language.name }}" class="mx-auto rounded w-8 h-8"></td>
+                                        <td class="py-2">{{ language.name }}</td>
+                                        <td class="flex items-center justify-center py-2">
+                                            <a href="{% url 'delete_language' language.language_id %}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" class="size-6 text-red-500">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                </svg>                                  
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endwith %}
+                            {% endwith %}
+                        {% endfor %}
+                    {% else %}
+                        <tr class="border-b text-center">
+                            <td colspan="4" class="py-4 text-gray-500">No languages found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-span-1 border rounded shadow bg-white max-h-96 h-96">
+            <h5 class="sticky top-0 p-2 px-4 text-sm text-gray-500 font-semibold bg-gray-50">Newsletter</h5>
+            <table class="w-full">
+                <thead class="sticky top-0 bg-white">
+                    <tr class="text-gray-400 border-y">
+                        <th class="font-semibold p-2">Email</th>
+                        <th class="font-semibold p-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if newsletter|length > 0 %}
+                        {% for subscriber in newsletter %}
+                            <tr class="border-b text-center hover:bg-gray-50">
+                                <td class="py-2">{{ subscriber.email }}</td>
+                                <td class="py-2 flex items-center justify-center">
+                                    <a href="{% url 'delete_newsletter' subscriber.newsletter_id %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" class="size-6 text-red-500">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                        </svg>   
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                    <tr class="border-b text-center">
+                        <td colspan="4" class="py-4 text-gray-500">No subscribers found</td>
+                    </tr>
+                    {% endif %}
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="col-span-1 border rounded shadow bg-white h-96 max-h-96">
+            <div class="sticky top-0 flex items-center text-sm justify-between bg-gray-50 p-2 px-4">
+                <h5 class="text-gray-500 font-semibold">Testimonials</h5>
+                <button id="createTestimonialsBtn" class="px-2 py-1 border rounded shadow-inner hover:bg-gray-50 ease duration-200 bg-white">Add Testimonial</button>
+            </div>
+            <table class="w-full">
+                <thead class="bg-white">
+                    <tr class="text-gray-400 border-y">
+                        <th class="font-semibold p-2">Image</th>
+                        <th class="font-semibold p-2">Name</th>
+                        <th class="font-semibold p-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if testimonials|length > 0 %}
+                        {% for testimonial in testimonials %}
+                            {% with testimonial.image.url|split:'/'|get_list_item:-1 as image_filename  %}
+                                {% with 'testimonials/' as folder_name %}
+                                    <tr class="border-b text-center hover:bg-gray-50">
+                                        <td class="p-2 text-gray-500 text-sm">
+                                            <img src="{% static folder_name|add:image_filename %}" alt="{{ testimonial.name }}" class="mx-auto rounded w-8 h-8">
+                                        </td>
+                                        <td class="p-2 text-gray-500 text-sm">{{ testimonial.name }}</td>
+                                        <td>
+                                            <a href="{% url 'delete_testimonial' testimonial.testimonial_id %}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" class="mx-auto size-6 text-red-500">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                </svg>   
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endwith %}
+                            {% endwith %}
+                        {% endfor %}
+                    {% else %}
+                    <tr class="border-b text-center">
+                        <td colspan="4" class="py-4 text-gray-500">No subscribers found</td>
+                    </tr>
+                    {% endif %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% include 'dashboard/components/modals.html' %}
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/modals.js' %}"></script>
+{% endblock %}

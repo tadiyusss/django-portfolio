@@ -1,0 +1,14 @@
+{% load static %}
+<section id="hero" class="w-full h-screen text-black text-white p-2 bg-[url('/static/background.png')] bg-cover bg-center bg-no-repeat">
+    {% include "components/top_navigation_bar.html" %}
+    <div class="max-w-6xl mx-auto text-center my-[10%] ">
+        <img src="{% static 'profile-picture.jpg' %}" class="w-36 h-36 object-cover mx-auto rounded-full mb-5">
+        <h3 class="lg:text-6xl md:text-5xl text-3xl font-bold">Full-Stack Development and System Management</h3>
+        <p class="mt-2.5 text-gray-300">Hi, I'm <span class="text-indigo-400">Thaddeus Toledo</span>, and I design systems that are both <span class="text-indigo-400">scalable</span> and equipped with <span class="text-indigo-400">user-friendly interfaces.</span></p>
+        <div class="flex justify-center space-x-3 my-3">
+            <a href="https://www.facebook.com/thaddeus.toledo"><img src="{% static 'facebook.svg' %}" class="w-6 h-6"></a>
+            <a href="https://www.github.com/tadiyusss"><img src="{% static 'github.svg' %}" class="w-6 h-6 bg-gray-200 rounded"></a>
+            <a href="https://www.linkedin.com/in/thaddeus-toledo-71b97425b/"><img src="{% static 'linkedin.svg' %}" class="w-6 h-6"></a>
+        </div>        
+    </div>
+</section>

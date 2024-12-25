@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+    <div class="w-full bg-gradient-to-b from-zinc-900 to-slate-900 text-white">
+        <div class="md:bg-zinc-800 p-2">
+            {% include "components/top_navigation_bar.html" %}
+        </div>
+        <div class="rounded max-w-6xl p-3 mx-auto">
+            <div class="md:mt-24 md:mb-32 mt-20 mb-24 text-center">
+                <h2 class="text-5xl font-semibold">{{ blog.title }}</h2>
+                <p class="text-gray-300 ">{{ blog.subheading }}</p>
+            </div>
+            
+            <img src="{{ blog.image|clean_image_url }}" class="md:rounded-2xl rounded-lg w-full  min-w-full">
+                
+            <div class="my-5">
+                <p id="content">{{ blog.content }}</p>
+            </div>
+        </div>
+        {% include "components/footer.html" %}
+    </div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.3/purify.min.js" integrity="sha512-Ll+TuDvrWDNNRnFFIM8dOiw7Go7dsHyxRp4RutiIFW/wm3DgDmCnRZow6AqbXnCbpWu93yM1O34q+4ggzGeXVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'js/markdown-designs.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        var content_container = $("#content");
+        sanitize = DOMPurify.sanitize(content_container.html());
+        content_container.html(marked.parse(sanitize));
+        applyTailwind('content', true);
+    })
+</script>
+{% endblock %}
+

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+    <div class="w-full bg-gradient-to-b from-zinc-900 to-slate-900 text-white">
+        <div class="md:bg-zinc-800 p-2">
+            {% include "components/top_navigation_bar.html" %}
+        </div>
+        <div class="rounded max-w-6xl p-3 mx-auto">
+            <div class="md:mt-24 md:mb-32 mt-20 mb-24 text-center">
+                <h2 class="text-5xl font-semibold">{{ project.heading }}</h2>
+                <p class="text-gray-300 ">{{ project.sub_heading }}</p>
+            </div>
+            {% with project.image.url|split:'/'|get_list_item:-1 as image_filename  %}
+                {% with 'projects/' as folder_name %}
+                    <img src="{% static folder_name|add:image_filename %}" class="md:rounded-2xl rounded-lg w-full  min-w-full">
+                {% endwith %}
+            {% endwith %}
+            <div class="my-5">
+                <h2 class="text-3xl font-semibold">{{ project.name }}</h2>
+                <div class="flex flex-wrap gap-2.5 mt-3">
+                    {% for language in project.languages.all %}
+                        <div class="px-4 py-1 text-sm border rounded-full border-slate-600 text-slate-300 hover:bg-slate-800 ease duration-200">{{ language.name }}</div>
+                    {% endfor %}
+                </div>
+                <div class="flex items-center space-x-4 my-4">
+                    {% if project.demo_url != None %}
+                        <a href="{{ project.demo_url }}" class="px-2 py-1 rounded border border-zinc-600 bg-zinc-800">View Demo</a>
+                    {% endif %}
+                    {% if project.source_url != None %}
+                        <a href="{{ project.source_url }}" class="px-2 py-1 rounded border border-zinc-600 bg-zinc-800">Source Code</a>
+                    {% endif %}
+                </div>
+                <div id="content">{{ project.description }}</div>
+            </div>
+        </div>
+        {% include "components/footer.html" %}
+    </div>
+{% endblock %}
+
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.3/purify.min.js" integrity="sha512-Ll+TuDvrWDNNRnFFIM8dOiw7Go7dsHyxRp4RutiIFW/wm3DgDmCnRZow6AqbXnCbpWu93yM1O34q+4ggzGeXVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'js/markdown-designs.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        var content_container = $("#content");
+        sanitize = DOMPurify.sanitize(content_container.html());
+        content_container.html(marked.parse(sanitize));
+        applyTailwind('content', true);
+    })
+</script>
+{% endblock %}

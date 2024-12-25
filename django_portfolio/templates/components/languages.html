@@ -1,0 +1,25 @@
+{% load static %}
+{% load custom_filters %}
+<section class="w-full text-white pt-10 pb-3 px-2.5">
+    <div class="max-w-7xl mx-auto px-2">
+        <h3 class="text-3xl font-semibold pt-5">Languages and Frameworks</h3>
+        <p class="mt-2.5 mb-3 text-slate-300">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus sed maxime fugiat facere aliquid.</p>
+        <div class="w-full mx-auto py-2 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-2.5">
+            {% for language in languages %}
+                {% with language.image.url|split:'/'|get_list_item:-1 as image_filename  %}
+                    {% with 'languages/' as folder_name %}
+                        <div class="col-span-1 p-3 border border-slate-800 bg-slate-900/50 hover:bg-slate-900/70  text-white rounded text-left flex items-center space-x-5">
+                            <div class="p-2 {{ language.background_color }} rounded-lg">
+                                <img src="{% static folder_name|add:image_filename %}" class="w-10 h-10 object-cover">
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold">{{ language.name }}</h3>
+                                <p class="text-slate-400 text-sm">{{ language.short_description }}</p>
+                            </div>
+                        </div>
+                    {% endwith %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+</section>

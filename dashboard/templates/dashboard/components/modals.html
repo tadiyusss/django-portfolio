@@ -1,0 +1,68 @@
+<div id="createLanguageModal" class="fixed inset-0 flex sm:items-center sm:justify-center bg-black bg-opacity-50 hidden">
+    <form method="post" enctype="multipart/form-data" class="bg-white rounded shadow sm:w-96 w-full p-6 shadow-lg md:mb-96">
+        <div class="flex items-center w-full justify-between">
+            <h5 class="text-lg font-semibold" id="modal-title">Create Project</h5>
+            <button id="closeModal">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>   
+            </button>
+        </div>
+        <div  class="mt-4 mb-4">
+            {% csrf_token %}
+            <div class="mt-2">
+                {% for field in language_form %}
+                    {{ field }}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <p class="text-xs text-red-500">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {% if field.name == 'image' %}
+                        <p class="text-xs text-gray-400 mt-1">PNG, JPEG, GIF</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="flex items-center justify-end space-x-4">
+            <button id="closeModalBottom" class="border shadow-inner hover:bg-gray-50 ease duration-200 px-4 py-1 rounded">Cancel</button>
+            <button name="add_language" type="submit" class="px-4 py-1 bg-green-500 text-white rounded shadow-inner text-md hover:bg-green-600 ease duration-200">Save</button>
+        </div>
+    </form>
+</div>
+
+<div id="createTestimonialModal" class="fixed inset-0 flex sm:items-center sm:justify-center bg-black bg-opacity-50 hidden">
+    <form method="post" enctype="multipart/form-data" class="bg-white rounded shadow sm:w-96 w-full p-6 shadow-lg md:mb-24">
+        <div class="flex items-center w-full justify-between">
+            <h5 class="text-lg font-semibold" id="modal-title">Create Testimonials</h5>
+            <button id="closeModal">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>   
+            </button>
+        </div>
+        <div  class="mt-4 mb-4">
+            {% csrf_token %}
+            <div class="mt-2">
+                {% for field in testimonial_form %}
+                    {{ field }}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <p class="text-xs text-red-500">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {% if field.name == 'image' %}
+                        <p class="text-xs text-gray-400 mt-1">PNG, JPEG, GIF</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="flex items-center justify-end space-x-4">
+            <button id="closeModalBottom" class="border shadow-inner hover:bg-gray-50 ease duration-200 px-4 py-1 rounded">Cancel</button>
+            <button name="add_testimonial" type="submit" class="px-4 py-1 bg-green-500 text-white rounded shadow-inner text-md hover:bg-green-600 ease duration-200">Save</button>
+        </div>
+    </form>
+</div>
+
+
+<div id="sidebarOverlay" class="fixed inset-y-0 left-0 z-30 lg:w-72 w-0 bg-black lg:bg-opacity-50 bg-opacity-0 duration-300 hidden"></div>

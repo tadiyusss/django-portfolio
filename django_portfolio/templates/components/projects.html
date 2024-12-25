@@ -1,0 +1,31 @@
+{% load static %}
+{% load custom_filters %}
+<section id="projects" class="w-full text-white py-3 px-2.5">
+    <div class="max-w-7xl mx-auto px-2">
+        <h3 class="text-3xl font-semibold pt-5">Projects</h3>
+        <p class="mt-2.5 mb-3 text-slate-300">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus sed maxime fugiat facere aliquid.</p>
+        <div class="w-full mx-auto py-2 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2.5">
+            {% for project in projects %}
+                {% with project.image.url|split:'/'|get_list_item:-1 as image_filename  %}
+                    {% with 'projects/' as folder_name %}
+                        <a href="{% url 'project_detail' project.project_id %}" class="col-span-1 relative w-full h-56 rounded-lg overflow-hidden shadow-lg group">
+                            <img src="{% static folder_name|add:image_filename %}" alt="Default Image" class="w-full h-full object-cover transition-opacity duration-300">
+                            <div class="absolute inset-0 bg-gray-900 w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-50"></div>
+                            <div class="absolute inset-0 flex flex-col opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50 p-4">
+                                <p class="text-white text-lg font-semibold">{{ project.name }}</p>
+                                <p class="text-slate-300 text-sm mt-1">{{ project.sub_heading }}</p>
+                            
+                                <div class="flex flex-wrap gap-2.5 mt-3">
+                                    {% for language in project.languages.all %}
+                                        <span class="text-center text-sm col-span-1 px-2 py-1 border border-slate-500 text-slate-400 rounded">{{ language.name }}</span>
+                                    {% endfor %}
+                                </div>
+                                
+                            </div>
+                        </a>
+                    {% endwith %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+</section>

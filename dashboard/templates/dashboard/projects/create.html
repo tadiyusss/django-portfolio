@@ -1,0 +1,49 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %} 
+    <div class="w-full grid md:grid-cols-2 grid-cols-1 gap-2.5">
+        <form enctype="multipart/form-data" method="POST" class="col-span-1 p-3 border rounded shadow bg-white">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.label != 'Published' %}
+                    {{field}}
+                {% else %}
+                    {{ field }}
+                    {{ field.label }}
+                {% endif %}
+            {% endfor %}
+            <div class="flex items-center space-x-4 mt-4 ">
+                <a href="{% url 'projects' %}" class="px-4 py-1 rounded bg-white border shadow-inner hover:bg-gray-50 ease duration-200">Return</a>
+                <button class="px-4 py-1 bg-green-500 hover:bg-green-600 ease duration-200 text-white rounded" name="save_project" type="submit">Save</button>
+            </div>
+        </form>
+        <div class="col-span-1 p-3 border rounded shadow bg-white">
+            <h5 class="text-sm text-gray-500 font-semibold">Preview</h5>
+            <div id="preview" class="mt-2"></div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.3/purify.min.js" integrity="sha512-Ll+TuDvrWDNNRnFFIM8dOiw7Go7dsHyxRp4RutiIFW/wm3DgDmCnRZow6AqbXnCbpWu93yM1O34q+4ggzGeXVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'js/markdown-designs.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+        var content = $("#id_description").val();
+        var preview = $("#preview");
+        sanitized = DOMPurify.sanitize(content);
+        preview.html(marked.parse(sanitized));
+        applyTailwind('preview');
+    });
+
+    
+    $("#id_description").on("input", function() {
+        var content = $("#id_description").val();
+        var preview = $("#preview");
+        sanitized = DOMPurify.sanitize(content);
+        preview.html(marked.parse(sanitized));
+        applyTailwind('preview');
+    });
+</script>
+{% endblock %}

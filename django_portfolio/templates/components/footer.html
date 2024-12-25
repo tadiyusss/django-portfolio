@@ -1,0 +1,50 @@
+<footer class="w-full py-10">
+    <div class="max-w-7xl mx-auto px-2.5 text-white ">
+        <div class="border border-slate-700 bg-slate-800/20 rounded">
+            <div class="p-10">
+                <h1 class="text-3xl font-semibold">Loving what you see? <span class="text-indigo-500">Subscribe</span> to my website and never miss an update!</h1>
+                <form id="newsletter" method="POST" class="md:flex block items-center mt-4">
+                    {% csrf_token %}
+                    {{ newsletter_form.email }}
+                    <input type="submit" name="newsletter_form" class="py-2 px-5 md:w-auto w-full rounded bg-indigo-800 hover:bg-indigo-900 ease duration-200 cursor-pointer" value="Subscribe"></input>
+                </form>                
+            </div>
+            <div class="border-t p-10 border-slate-700">
+                <div class="grid md:grid-cols-2 grid-cols-1 gap-2.5">
+                    <div class="col-span-1">
+                        <h6 class="text-2xl font-semibold">Thaddeus Toledo</h6>
+                        <p class="text-sm text-slate-400">© 2024 | All rights reserved.</p>
+                    </div>
+                    <div class="grid grid-cols-3 col-span-1 gap-2.5 md:my-0 my-4">
+                        <div class="col-span-1">
+                            <h6 class="text-lg">Navigate</h6>
+                            <ul class="text-sm text-slate-400">
+                                <li><a href="{% url 'index' %}">Home</a></li>
+                                <li><a href="{%url 'index' %}#projects">Projects</a></li>
+                                <li><a href="{%url 'index' %}#blogs">Blogs</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-span-1">
+                            <h6 class="text-lg">Projects</h6>
+                            <ul class="text-sm text-slate-400">
+                                {% for project in footer_projects %}
+                                <li>
+                                    <a href="{% url 'project_detail' project.project_id %}">{{ project.name }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-span-1">
+                            <h6 class="text-lg">Socials</h6>
+                            <ul class="text-sm text-slate-400">
+                                <li><a href="https://www.linkedin.com/in/thaddeus-toledo-71b97425b/">LinkedIn</a></li>
+                                <li><a href="https://www.facebook.com/thaddeus.toledo">Facebook</a></li>
+                                <li><a href="https://github.com/tadiyusss">Github</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
