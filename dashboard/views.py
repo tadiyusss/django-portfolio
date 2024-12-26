@@ -211,7 +211,7 @@ def create_blog(request):
         subheading = form.cleaned_data['subheading']
         image = form.cleaned_data['image']
         content = form.cleaned_data['content']
-        publish = 'publish_blog' in request.POST
+        publish = form.cleaned_data['published']
 
         blog = Blog(title=title, subheading=subheading, image=image, content=content, published=publish)
         blog.save()
@@ -274,7 +274,7 @@ def create_project(request):
         demo_url = form.cleaned_data['demo_url']
         source_url = form.cleaned_data['source_url']
         languages = form.cleaned_data['languages']
-        published = 'publish_project' in request.POST
+        published = form.cleaned_data['published']
 
         project = Project(heading=heading, sub_heading=sub_heading, description=description, image=image, name=name, demo_url=demo_url, source_url=source_url, published=published)
         project.save()
