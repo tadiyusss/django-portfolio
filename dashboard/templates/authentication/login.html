@@ -14,10 +14,16 @@
             <div class="my-4">
                 <label class="font-semibold text-slate-500">Username</label>
                 <input type="text" name="username" class="border w-full mt-1 px-2 py-1 rounded bg-slate-200 border-slate-300 focus:outline-none focus:outline-indigo-500" placeholder="johndoe">
+                {% if form.username.errors %}
+                    <p class="text-red-500 text-sm">{{ form.username.errors.0 }}</p>
+                {% endif %}
             </div>
             <div class="my-4">
                 <label class="font-semibold text-slate-500">Password</label>
                 <input type="password" name="password" class="border w-full mt-1 px-2 py-1 rounded bg-slate-200 border-slate-300 focus:outline-none focus:outline-indigo-500">
+                {% if form.password.errors %}
+                    <p class="text-red-500 text-sm">{{ form.password.errors.0 }}</p>
+                {% endif %}
             </div>
             <div class="mt-8">
                 <button type="submit" class="w-full py-2 border-indigo-700 bg-indigo-600 hover:bg-indigo-700 ease duration-200 text-white rounded">Login</button>
