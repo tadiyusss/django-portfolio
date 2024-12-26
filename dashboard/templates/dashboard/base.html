@@ -127,7 +127,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>                          
                     </button>
-                    <h4 class="text-2xl font-medium">Hello, {{ request.user.first_name }} {{ request.user.last_name }}</h4>
+                    <h4 class="text-2xl font-medium">Hello, {{ request.user.username }}</h4>
 				</header>
 				<main class="p-4">
                     {% block content %}{% endblock %}
