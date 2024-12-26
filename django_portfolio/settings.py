@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
-import uuid
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = uuid.uuid4().hex
+SECRET_KEY = 'django-insecure-5e_r#$d5!=tp!@9@+e5c_c8jssp*1hbt3_569mke@ejkz633of'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -123,13 +122,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / '../static'
 
-STATIC_URL = 'static/'
-
-STATIC_FILES_DIRS = [
-    os.path.join(BASE_DIR, 'dashboard/static')
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
 ]
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -140,5 +138,5 @@ REQUEST_IGNORE_PATHS = (
     r'^admin/',
     r'^dashboard/',
     r'^favicon.ico',
-    r'^static/'
+    r'^static/',
 )
