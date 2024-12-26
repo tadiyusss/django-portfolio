@@ -12,7 +12,7 @@
                 <p class="text-gray-300 ">{{ blog.subheading }}</p>
             </div>
             
-            <img src="{{ blog.image|clean_image_url }}" class="md:rounded-2xl rounded-lg w-full  min-w-full">
+            <img src="/{{ blog.image }}" class="md:rounded-2xl rounded-lg w-full  min-w-full">
                 
             <div class="my-5">
                 <p id="content">{{ blog.content }}</p>
@@ -28,8 +28,9 @@
 <script>
     $(document).ready(function(){
         var content_container = $("#content");
-        sanitize = DOMPurify.sanitize(content_container.html());
-        content_container.html(marked.parse(sanitize));
+        var sanitized = DOMPurify.sanitize(content_container.html());
+        replaced = sanitized.replace(/&gt;/g, '>');
+        content_container.html(marked.parse(replaced));
         applyTailwind('content', true);
     })
 </script>

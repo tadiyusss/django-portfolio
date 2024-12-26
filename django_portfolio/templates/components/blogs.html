@@ -6,7 +6,7 @@
         <div class="w-full mx-auto py-2 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2.5">
             {% for blog in blogs %}
             <a href="{% url 'view_blog' blog.blog_id %}" class="col-span-1 border border-slate-800 bg-slate-800/30 text-white rounded">
-                <img src="{{ blog.image|clean_image_url }}" class="rounded-t h-60 w-full object-cover">
+                <img src="{{ blog.image }}" class="rounded-t h-60 w-full object-cover">
                 <div class="p-4">
                     <h5 class="text-2xl font-semibold">{{ blog.title }}</h5>
                     <p class="mt-1 text-slate-300">{{ blog.subheading }}</p>
