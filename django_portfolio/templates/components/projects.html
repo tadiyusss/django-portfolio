@@ -3,7 +3,7 @@
 <section id="projects" class="w-full text-white py-3 px-2.5">
     <div class="max-w-7xl mx-auto px-2">
         <h3 class="text-3xl font-semibold pt-5">Projects</h3>
-        <p class="mt-2.5 mb-3 text-slate-300">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus sed maxime fugiat facere aliquid.</p>
+        <p class="mt-2.5 mb-3 text-slate-300">A collection of key projects that show my skills in website development.</p>
         <div class="w-full mx-auto py-2 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2.5">
             {% for project in projects %}
                 {% with project.image.url|split:'/'|get_list_item:-1 as image_filename  %}
