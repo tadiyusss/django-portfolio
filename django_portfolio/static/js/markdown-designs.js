@@ -8,7 +8,7 @@ function applyTailwind(container_id, dark_mode = false) {
     $(`${container} h4`).addClass(`my-4 text-2xl font-semibold ${darkClass ? 'text-white' : ''}`);
     $(`${container} h5`).addClass(`my-4 text-xl font-semibold ${darkClass ? 'text-white' : ''}`);
     $(`${container} h6`).addClass(`my-4 text-lg font-semibold ${darkClass ? 'text-white' : ''}`);
-    $(`${container} p`).addClass(`w-full border border-gray-800 bg-gray-700 p-4`);
+    $(`${container} pre`).addClass(`w-full border border-gray-800 bg-gray-700 p-4`);
     $(`${container} p`).addClass(`my-2`);
     $(`${container} a`).addClass(`text-blue-500 ${darkClass ? 'text-blue-300' : ''}`);
     $(`${container} blockquote`).addClass(`border-l-4 ${darkClass ? 'border-gray-600' : 'border-gray-300'} pl-2`);
