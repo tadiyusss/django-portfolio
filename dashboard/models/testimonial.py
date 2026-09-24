@@ -6,7 +6,7 @@ from django.db import models
 class Testimonial(models.Model):
     testimonial_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="static/testimonials")
+    image = models.ImageField(upload_to="media/testimonials")
     position = models.CharField(max_length=100)
     company = models.CharField(max_length=100)
     message = models.TextField()

@@ -1,5 +1,8 @@
 from django.urls import path
+from request import settings
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('login/', views.login_admin, name = 'login_admin'),
@@ -21,3 +24,9 @@ urlpatterns = [
     path('projects/create/', views.create_project, name = 'create_project'),
     path('projects/edit/<int:pk>/', views.edit_project, name = 'edit_project'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )

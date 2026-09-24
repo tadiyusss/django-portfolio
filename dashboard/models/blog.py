@@ -7,7 +7,7 @@ class Blog(models.Model):
     blog_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     subheading = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="static/blogs")
+    image = models.ImageField(upload_to="media/blogs")
     content = models.TextField()
     published = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
