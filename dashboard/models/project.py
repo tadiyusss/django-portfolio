@@ -10,7 +10,7 @@ class Project(models.Model):
     heading = models.CharField(max_length=100)
     sub_heading = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField(upload_to="media/projects")
+    image = models.ImageField(upload_to="projects/")
     name = models.CharField(max_length=100)
     demo_url = models.URLField(blank=True, null=True)
     source_url = models.URLField(blank=True, null=True)

@@ -5,7 +5,7 @@ from django.db import models
 
 class UploadedAsset(models.Model):
     file_id = models.AutoField(primary_key=True)
-    file = models.FileField(upload_to="media/assets")
+    file = models.FileField(upload_to="assets/")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

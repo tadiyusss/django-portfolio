@@ -5,7 +5,7 @@ from django.db import models
 
 class Language(models.Model):
     language_id = models.AutoField(primary_key=True)
-    image = models.ImageField(upload_to="media/languages")
+    image = models.ImageField(upload_to="languages/")
     name = models.CharField(max_length=100)
     background_color = models.CharField(max_length=100)
     short_description = models.TextField()
