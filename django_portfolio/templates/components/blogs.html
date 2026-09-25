@@ -10,7 +10,7 @@
             <a href="{% url 'view_blog' blog.blog_id %}" class="col-span-1 border border-slate-800 bg-slate-800/30 text-white rounded">
                 <img src="{{ blog.image.url }}" class="rounded-t h-60 w-full object-cover">
                 <div class="p-4">
-                    <h5 class="text-2xl font-semibold">{{ blog.title }}</h5>
+                    <h5 class="text-xl font-semibold">{{ blog.title }}</h5>
                     <p class="mt-1 text-slate-300">{{ blog.subheading }}</p>
                 </div>
             </a>
