@@ -42,7 +42,7 @@ def home(request):
 
     today = date.today()
     hit_counter = {
-        'hits_today': Request.objects.filter(time__date = today),
+        'hits_today': Request.objects.filter(time__date = today)[:50],
         'hits_total': Request.objects.all(),
         'hits_unique_today': Request.objects.filter(time__date = today).values('ip').annotate(Count('ip')),
         'most_visited_page': Request.objects.values('path').annotate(Count('path')).order_by('-path__count').first()
