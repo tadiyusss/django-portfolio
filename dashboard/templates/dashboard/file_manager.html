@@ -32,7 +32,7 @@
                 {% for file in files %}
                     <tr class="border-b text-center hover:bg-gray-50">
                         <td class="py-2">
-                            <a class="text-blue-500 underline" href="/static/assets/{{ file.file.url|get_base_name }}">{{ file.file.url|get_base_name }}</a>
+                            <a class="text-blue-500 underline" href="{{ file.file.url }}">{{ file.file.url|get_base_name }}</a>
                         </td>
                         <td class="py-2">{{ file.created_at }}</td>
                         <td class="py-2 flex items-center justify-center space-x-4">

@@ -18,7 +18,7 @@
         </div>
         <div class="col-span-1 p-4 border rounded shadow bg-white">
             <h5 class="text-lg text-gray-400 font-semibold">Most Visited Path</h5>
-            <p class="text-3xl">{{hit_counter|get_dict_item:'most_visited_page'|get_dict_item:'path'}}</p>
+            <p class="text-sm">{{hit_counter|get_dict_item:'most_visited_page'|get_dict_item:'path'}}</p>
         </div>
     </div>
     <div class="grid md:grid-cols-4 grid-cols-1 gap-4 mt-4">
@@ -103,7 +103,7 @@
                             {% with language.image.url|split:'/'|get_list_item:-1 as image_filename  %}
                                 {% with 'languages/' as folder_name %}
                                     <tr class="border-b text-center hover:bg-gray-50">
-                                        <td class="py-2"><img src="{% static folder_name|add:image_filename %}" alt="{{ language.name }}" class="mx-auto rounded w-8 h-8"></td>
+                                        <td class="py-2"><img src="{{ language.image.url }}" alt="{{ language.name }}" class="mx-auto rounded w-8 h-8"></td>
                                         <td class="py-2">{{ language.name }}</td>
                                         <td class="flex items-center justify-center py-2">
                                             <a href="{% url 'delete_language' language.language_id %}">
