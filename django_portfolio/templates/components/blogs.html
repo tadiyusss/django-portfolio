@@ -1,4 +1,6 @@
 {% load custom_filters %}
+
+{% if blogs|length > 0 %}
 <section id="blogs" class="w-full text-white py-3 px-2.5">
     <div class="max-w-7xl mx-auto px-2">
         <h3 class="text-3xl font-semibold pt-5">Blogs</h3>
@@ -16,3 +18,4 @@
         </div>
     </div>
 </section>
+{% endif %}
