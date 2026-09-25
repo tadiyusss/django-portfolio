@@ -15,13 +15,14 @@ services:
     volumes:
       - ./media:/app/media
       - ./staticfiles:/app/staticfiles
+      - ./db.sqlite3:/app/db.sqlite3
 
     command: >
       sh -c "
         python manage.py collectstatic --noinput &&
         python manage.py migrate dashboard &&
         python manage.py migrate django_portfolio &&
-        gunicorn django_portfolio.wsgi:application --bind 0.0.0.0 --workers 1
+        gunicorn django_portfolio.wsgi:application --bind 0.0.0.0 --workers 2 --timeout 120 --access-logfile - --error-logfile -
       "
   nginx:
     image: nginx:alpine
