@@ -9,7 +9,7 @@
                 {% with project.image.url|split:'/'|get_list_item:-1 as image_filename  %}
                     {% with 'projects/' as folder_name %}
                         <a href="{% url 'project_detail' project.project_id %}" class="col-span-1 relative w-full h-56 rounded-lg overflow-hidden shadow-lg group">
-                            <img src="{% static folder_name|add:image_filename %}" alt="Default Image" class="w-full h-full object-cover transition-opacity duration-300">
+                            <img src="{{ project.image.url }}" alt="{{ project.name }}" class="w-full h-full object-cover transition-opacity duration-300">
                             <div class="absolute inset-0 bg-gray-900 w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-50"></div>
                             <div class="absolute inset-0 flex flex-col opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50 p-4">
                                 <p class="text-white text-lg font-semibold">{{ project.name }}</p>

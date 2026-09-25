@@ -24,7 +24,7 @@
                     </div>
                     <p class="max-w-4xl text-center mx-auto my-4 lg:text-4xl md:text-3xl text-2xl">"{{ testimonial.message }}"</p>
                     <div class="flex items-center justify-center space-x-3 max-w-xs mx-auto">
-                        <img src="{% static folder_name|add:image_filename %}" class="rounded-full w-16 h-16" alt="{{ testimonial.name }}">
+                        <img src="{{ testimonial.image.url }}" class="rounded-full w-16 h-16" alt="{{ testimonial.name }}">
                         <div class="block">
                             <h5 class="text-lg font-semibold">{{ testimonial.name }}</h5>
                             <p class="text-sm text-slate-400 font-semibold">{{ testimonial.position }}, {{ testimonial.company }}</p>

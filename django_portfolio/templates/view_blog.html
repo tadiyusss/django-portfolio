@@ -12,7 +12,7 @@
                 <p class="text-gray-300 ">{{ blog.subheading }}</p>
             </div>
             
-            <img src="/{{ blog.image }}" class="md:rounded-2xl rounded-lg w-full  min-w-full">
+            <img src="{{ blog.image.url }}" class="md:rounded-2xl rounded-lg w-full  min-w-full">
                 
             <div class="my-5">
                 <p id="content">{{ blog.content }}</p>

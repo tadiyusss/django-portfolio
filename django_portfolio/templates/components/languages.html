@@ -10,7 +10,7 @@
                     {% with 'languages/' as folder_name %}
                         <div class="col-span-1 p-3 border border-slate-800 bg-slate-900/50 hover:bg-slate-900/70  text-white rounded text-left flex items-center space-x-5">
                             <div class="p-2 {{ language.background_color }} rounded-lg">
-                                <img src="{% static folder_name|add:image_filename %}" class="w-10 h-10 object-cover">
+                                <img src="{{ language.image.url }}" class="w-10 h-10 object-cover">
                             </div>
                             <div>
                                 <h3 class="text-lg font-semibold">{{ language.name }}</h3>

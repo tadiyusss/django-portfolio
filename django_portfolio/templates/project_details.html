@@ -13,7 +13,7 @@
             </div>
             {% with project.image.url|split:'/'|get_list_item:-1 as image_filename  %}
                 {% with 'projects/' as folder_name %}
-                    <img src="{% static folder_name|add:image_filename %}" class="md:rounded-2xl rounded-lg w-full  min-w-full">
+                    <img src="{{ project.image.url }}" class="md:rounded-2xl rounded-lg w-full  min-w-full">
                 {% endwith %}
             {% endwith %}
             <div class="my-5">
